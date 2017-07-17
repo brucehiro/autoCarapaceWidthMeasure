@@ -10,9 +10,9 @@ import javax.swing.JFrame;
 
 public class windosUI extends JFrame{
 	private BufferedImage inputImg;
-	private BufferedImage[][] inputImgSelectedArea = new BufferedImage[3][3];
+	
 	private photoRangeSelection photoRS;
-	private autoMeasureCarapaceWidth photoAMCW;
+	
 	
 	windosUI()
 	{
@@ -27,18 +27,7 @@ public class windosUI extends JFrame{
 		}
 		
 		photoRS = new photoRangeSelection(inputImg);
-		inputImgSelectedArea = photoRS.getSubImgs();
-		for(int i=0; i<3; i++)
-		{
-			for(int j=0; j<3; j++)
-			{
-				photoAMCW = new autoMeasureCarapaceWidth(inputImgSelectedArea[i][j]);
-				System.out.println(photoAMCW.getResult());
-			}
-		}
-		
-		
-		
+							
 				
 //		add(photoRS,BorderLayout.CENTER);
 		

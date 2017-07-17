@@ -18,13 +18,9 @@ public class categoryIdentify  {
 	double[] testColorPercentageMean = new double[3];
 	private double[][] colorPercentageSS = new double[inputStandardImg.length][3];
 	double[] testColorPercentageSS = new double[3];			
-	File inputTestImgFile;
-	String result;
 					
-	categoryIdentify(File inputTestImgFile)
-	{
-		this.inputTestImgFile = inputTestImgFile;
-		
+	categoryIdentify()
+	{				
 		try 
 		{
 	        inputStandardImg[0]=ImageIO.read(new File("D:\\crabCarapace\\carapace_standard.JPG"));
@@ -35,15 +31,10 @@ public class categoryIdentify  {
 	        for(int l=0; l<inputStandardImg.length; l++)
 	        {
 	        	colorPercentageMean[l] = measureMean(inputStandardImg[l]);
-	        	System.out.println(colorPercentageMean[l][0] + " " + colorPercentageMean[l][1] + " " + colorPercentageMean[l][2]);
+//	        	System.out.println(colorPercentageMean[l][0] + " " + colorPercentageMean[l][1] + " " + colorPercentageMean[l][2]);
 	        	colorPercentageSS[l] = measureSS(inputStandardImg[l], colorPercentageMean[l]);
 	        }
-	        	        
-	        inputTestImg = ImageIO.read(inputTestImgFile);
-	        testColorPercentageMean = measureMean(inputTestImg);
-	        System.out.println(testColorPercentageMean[0]+ " "+ testColorPercentageMean[1]+" "+testColorPercentageMean[2]);
-	        testColorPercentageSS = measureSS(inputTestImg, testColorPercentageMean);
-
+	        	        	       	        	        
 	    } 
 		catch (IOException ex) 
 		{
@@ -119,13 +110,18 @@ public class categoryIdentify  {
 								                       
 		return colorPercentageSS;		
 	}
-	
-	String getCategoryType()
+		
+	String getCategoryType(BufferedImage inputTestImg)
 	{
+		
 		final int COLOR_TYPE = 3;
 		double[] tValue = new double[inputStandardImg.length];
 		int[] categoryN = new int[inputStandardImg.length];
 		int testN = inputTestImg.getHeight()*inputTestImg.getWidth();
+		this.inputTestImg = inputTestImg;
+		
+		testColorPercentageMean = measureMean(inputTestImg);
+		testColorPercentageSS = measureSS(inputTestImg, testColorPercentageMean);
 		
 		for(int i=0; i<categoryN.length; i++)
 		{
@@ -166,7 +162,6 @@ public class categoryIdentify  {
 		}
 		
 		return "";
-		
 	}
 	
 	BufferedImage[] getBufferedImageArray()
@@ -193,10 +188,5 @@ public class categoryIdentify  {
 	{
 		return testColorPercentageSS;
 	}
-	
-	BufferedImage getInputTestBufferedImage()
-	{
-		return inputTestImg;
-	}
-			
+				
 }
